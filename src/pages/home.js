@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useGlobalContext } from "@/context/global";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 
 export default function Home() {
+
+  const router = useRouter()
+  const {name} = router.query
+
   const {
     allPokemonData,
     searchResults,
@@ -60,6 +64,17 @@ export default function Home() {
       {search && searchResults.length > 0 && (
         <div className="search-results">{displaySearchResults()}</div>
       )}
+
+        <div className="">
+          <button className="bg-[#7263f3] text-white p-2 rounded-lg" onClick={() => {
+            router.push({
+              pathname: "/create",
+              query: {
+                name: name
+            }
+            });
+          }}>Create a team</button>
+        </div>
 
       <div className="all-pokemon">
         {allPokemonData ? (

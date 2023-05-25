@@ -68,11 +68,12 @@ export const GlobalProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, intitialState);
   const [allPokemonData, setAllPokemonData] = useState([]);
+  const [allPossiblePokemons, setAllPossiblePokemons] = useState([])
 
   const allPokemon = async () => {
     dispatch({ type: "LOADING" });
 
-    const res = await fetch(`${baseUrl}pokemon?limit=20`);
+    const res = await fetch(`${baseUrl}pokemon?limit=60`);
     const data = await res.json();
     console.log(data);
     dispatch({ type: "GET_ALL_POKEMON", payload: data });
@@ -105,6 +106,8 @@ export const GlobalProvider = ({ children }) => {
 
     const res = await fetch(`${baseUrl}pokemon?limit=100000&offset=0`);
     const data = await res.json();
+
+    setAllPossiblePokemons(data)
 
     dispatch({ type: "GET_POKEMON_DATABASE", payload: data.results });
   };
@@ -150,6 +153,7 @@ export const GlobalProvider = ({ children }) => {
       value={{
         ...state,
         allPokemonData,
+        allPossiblePokemons,
         getPokemon,
         realTimeSearch,
         next,
