@@ -7,6 +7,7 @@ function create() {
   const [name, setName] = useState("")
   const [teamName, setTeamName] = useState("")
   const [pokemonTeam, setPokemonTeam] = useState([])
+  const [allPokemons, setAllPokemonData] = useState()
   const [isDisabled, setIsDisabled] = useState(true)
 
   const router = useRouter()
@@ -15,27 +16,29 @@ function create() {
     allPokemonData
   } = useGlobalContext();
 
+  useEffect(() => {
+    setAllPokemonData(allPokemonData)
+  },[allPokemonData])
+
   const fetchPokemon = (e) => {
+    console.log(allPokemons)
     e.preventDefault()
-    const pokemons = (allPokemonData)
-    const randomPokemon = pokemons[~~(Math.random() * pokemons.length)]
-    console.log(pokemons)
-    if(pokemonTeam.includes(randomPokemon)) {
+    if(allPokemons.length === 0){
       return
-    } else {
-      setPokemonTeam(current => [...current, randomPokemon])
+    } else if(allPokemons.length !== 0) {
+      const pokemons = allPokemons;
+      const randomPokemon = pokemons[~~(Math.random() * pokemons.length)];
+      console.log(pokemons);
+      if (pokemonTeam.includes(randomPokemon)) {
+        return;
+      } else {
+        setPokemonTeam((current) => [...current, randomPokemon]);
+      }
     }
+    
   }
 
-  const sleep = ms =>
-  new Promise(resolve => setTimeout(resolve, ms));
 
-  useEffect(() => {
-    console.log(pokemonTeam)
-    sleep(3000).then(() => {
-      setIsDisabled(false)
-    });
-  },[pokemonTeam])
 
   
 
@@ -55,7 +58,7 @@ function create() {
           
         </div>
         <button className="bg-[#7263f3] text-white p-2 rounded-lg" onClick={fetchPokemon}
-        disabled={isDisabled}
+        
         type="submit">
         Gotta Catch 'Em All
         </button>
@@ -83,7 +86,17 @@ function create() {
                 </div>
                 <div className="card-body">
                   <h3>{pokemon.name}</h3>
-                  <p>More Details &nbsp; &rarr;</p>
+                  <h3>Base Experience: {pokemon.base_experience}</h3>
+                  <h3>Type:</h3>
+                  {pokemon?.types?.map((type) => {
+                    return <p key={type.type.name}>{type.type.name},</p>;
+                  })}
+                  <h3>Abilities:</h3>
+                  {pokemon?.abilities?.map((ability) => {
+                    return (
+                      <p key={ability.ability.name}>{ability.ability.name},</p>
+                    );
+                  })}
                 </div>
               </div>
             );
