@@ -95,6 +95,17 @@ export default function Home() {
                 </div>
                 <div className="card-body">
                   <h3>{pokemon.name}</h3>
+                  <h3>Base Experience: {pokemon.base_experience}</h3>
+                  <h3>Type:</h3>
+                  {pokemon?.types?.map((type) => {
+                    return <p key={type.type.name}>{type.type.name},</p>;
+                  })}
+                  <h3>Abilities:</h3>
+                  {pokemon?.abilities?.map((ability) => {
+                    return (
+                      <p key={ability.ability.name}>{ability.ability.name},</p>
+                    );
+                  })}
                   <p>More Details &nbsp; &rarr;</p>
                 </div>
               </div>

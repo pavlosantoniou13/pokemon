@@ -10,6 +10,8 @@ function create() {
   const [allPokemons, setAllPokemonData] = useState()
   const [isDisabled, setIsDisabled] = useState(true)
 
+
+
   const router = useRouter()
 
   const {
@@ -39,7 +41,9 @@ function create() {
   }
 
 
-
+  useEffect(() => {
+    console.log(pokemonTeam)
+  },[pokemonTeam])
   
 
   return (
@@ -105,6 +109,10 @@ function create() {
           <h1>Loading...</h1>
         )}
       </div>
+     {pokemonTeam.length !== 0
+     ?  <div className='w-screen flex justify-center p-9' >
+     <button className='bg-black text-white p-2 rounded-lg'>Submit Team</button>
+   </div> : ""}
     </main>
   )
 }
