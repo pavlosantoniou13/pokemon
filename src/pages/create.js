@@ -10,7 +10,9 @@ function create() {
   const [allPokemons, setAllPokemonData] = useState()
   const [isDisabled, setIsDisabled] = useState(true)
 
+  
 
+  
 
   const router = useRouter()
 
@@ -40,15 +42,26 @@ function create() {
     
   }
 
+  const saveTeam = () => {
+    let teamData = [{
+      name: teamName,
+      pokemonTeam
+    }]
 
-  useEffect(() => {
-    console.log(pokemonTeam)
-  },[pokemonTeam])
-  
+    const storedTeams = localStorage.getItem("teams");
+    let teams = storedTeams ? JSON.parse(storedTeams) : [];
+    teams.push(teamData);
+    const updatedTeams = JSON.stringify(teams);
+    localStorage.setItem("teams", updatedTeams);
+    
+    
+    setPokemonTeam([])
+    setTeamName("")
+  }
 
   return (
     <main>
-        <form action="" className="search-form" >
+        <form action="" className="search-form-other-home" >
         <div className="input-control">
             
           <input
@@ -111,7 +124,7 @@ function create() {
       </div>
      {pokemonTeam.length !== 0
      ?  <div className='w-screen flex justify-center p-9' >
-     <button className='bg-black text-white p-2 rounded-lg'>Submit Team</button>
+     <button onClick={saveTeam} className='bg-black text-white p-2 rounded-lg'>Submit Team</button>
    </div> : ""}
     </main>
   )
