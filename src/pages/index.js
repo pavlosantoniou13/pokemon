@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast';
 import { toast } from 'react-hot-toast';
 
@@ -13,6 +13,7 @@ function index() {
         if(name === "") {
             toast.error("Please add a name")
         } else if(name !== "") {
+          localStorage.setItem("userName", name);
             router.push({
               pathname: "/home",
               query: {
@@ -20,9 +21,25 @@ function index() {
             }
             });
         }
-
+        
         setName("")
     }
+
+    useEffect(() => {
+      const storedUserName = localStorage.getItem("userName")
+      if(storedUserName !== null){
+        router.push({
+          pathname: "/home"
+        })
+      } else if(storedUserName === ""){
+        return
+      }
+
+      
+      
+    },[])
+
+    
 
   return (
     <main className=" p-4 flex flex-col bg-gray-100 h-screen">
