@@ -28,10 +28,9 @@ export default function teamPage() {
     <div>
       <div className="w-screen flex justify-center py-8">
         <div className="flex-col">
-          <h1 className="text-2xl font-bold">Your team</h1>
-          <h2 className="text-lg font-bold text-center">
+          <h1 className="text-lg font-bold text-center">
             {teamToDisplay.name}
-          </h2>
+          </h1>
         </div>
       </div>
       <div className="all-pokemon">

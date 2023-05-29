@@ -30,47 +30,42 @@ export default function edit() {
       return prev.filter((pokemon) => pokemon.name !== pokemonRemove)
     })
     
-    allTeams.map((team) => console.log(team[0].id))
-    setAllTeams((prev) => {
-      return prev.filter((teamData) => teamData[0].id !== id )
-    })
-
-    let teamData = [{
-      name: teamName,
-      pokemonTeam: team,
-      id: id
-    }]
-
-    setAllTeams((prev) => [...prev, teamData])
-  }
-
-  const submitChanges = () => {
-    allTeams.map((team) => console.log(team[0].id))
-    setAllTeams((prev) => {
-      return prev.filter((teamData) => teamData[0].id !== id )
-    })
-
-    let teamData = [{
-      name: teamName,
-      pokemonTeam: team,
-      id: id
-    }]
-
-    setAllTeams((prev) => [...prev, teamData])
     
   }
 
+ 
+
   const uploadData = () => {
-    const updatedTeams = JSON.stringify(allTeams);
-    localStorage.setItem("teams", updatedTeams);
+    let allTeamsArr = allTeams;
+
+    if (team.length === 0) {
+      allTeamsArr = allTeamsArr.filter((team) => team[0].id !== id);
+      const updatedTeams = JSON.stringify(allTeamsArr);
+      localStorage.setItem("teams", updatedTeams);
+    } else if (team.length !== 0) {
+      allTeamsArr = allTeamsArr.filter((team) => team[0].id !== id);
+
+      let teamData = [
+        {
+          name: teamName,
+          pokemonTeam: team,
+          id: id,
+        },
+      ];
+
+      allTeamsArr.push(teamData);
+
+      const updatedTeams = JSON.stringify(allTeamsArr);
+      localStorage.setItem("teams", updatedTeams);
+    }
   }
 
 
   
 
   useEffect(() => {
-    console.log(allTeams)
-  },[allTeams])
+    console.log(team)
+  },[team])
 
   return (
     <div className="mt-8 flex flex-col">
@@ -158,6 +153,15 @@ export default function edit() {
               </tbody>
             </table>
           </div>
+        </div>
+        <div className='w-screen flex justify-center my-3'>
+        <input
+                type="text"
+                class="block w-2/5 px-5 py-2 border rounded-lg bg-white shadow-lg placeholder-gray-400 text-gray-700 focus:ring focus:outline-none"
+                placeholder=" "
+                value={teamName}
+                onChange={(e) => setTeamName(e.target.value)}
+              />
         </div>
       </div>
       <div className="w-screen flex justify-center p-9">
