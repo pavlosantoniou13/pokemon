@@ -6,13 +6,13 @@ export default function teamPage() {
   const { team } = router.query;
   const [teamToDisplay, setTeamToDisplay] = useState([])
   const [array, setArray] = useState([])
-
+  console.log(team)
   useEffect(() => {
     const storedTeams = localStorage.getItem("teams");
     let teams = storedTeams ? JSON.parse(storedTeams) : [];
    console.log(teams[0])
     teams.map((currentTeam) => {
-      if(currentTeam[0].name === team){
+      if(currentTeam[0].id === team){
         setTeamToDisplay(currentTeam[0])
         setArray(currentTeam[0].pokemonTeam)
       }
@@ -72,7 +72,7 @@ export default function teamPage() {
       router.push({
         pathname: "/edit",
         query: {
-          name: teamToDisplay.name
+          id: teamToDisplay.id
       }
       });
      }} >Edit Team</button>

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useGlobalContext } from "@/context/global";
 import Router, { useRouter } from "next/router";
+import { nanoid } from 'nanoid'
 
 function create() {
   const [name, setName] = useState("")
@@ -43,9 +44,13 @@ function create() {
   }
 
   const saveTeam = () => {
+    
+    const id = nanoid()
+
     let teamData = [{
       name: teamName,
-      pokemonTeam
+      pokemonTeam,
+      id: id
     }]
 
     const storedTeams = localStorage.getItem("teams");
@@ -61,40 +66,72 @@ function create() {
 
   return (
     <main>
-        <form action="" className="search-form-other-home" >
+      <form action="" className="search-form">
+        <div className="p-6">
+          <img
+            className="w-[15rem] h-20 object-contain"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png"
+            alt=""
+          />
+        </div>
         <div className="input-control">
-            
           <input
             type="text"
             value={teamName}
             onChange={(e) => {
-              setTeamName(e.target.value)
+              setTeamName(e.target.value);
             }}
             placeholder="Team name..."
           />
-          
+          <button className="submit-btn" onClick={fetchPokemon} type="submit">
+            Gotta Catch 'Em All
+          </button>
         </div>
-        <button className="bg-[#7263f3] text-white p-2 rounded-lg" onClick={fetchPokemon}
-        
-        type="submit">
-        Gotta Catch 'Em All
-        </button>
+        <div class="hidden w-full md:block md:w-auto p-6">
+          <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li className="cursor-pointer">
+              <div
+                className="cursor-pointer hover:text-blue-600"
+                onClick={() => {
+                  router.push({
+                    pathname: "/home",
+                    
+                  });
+                }}
+                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
+                Home
+              </div>
+            </li>
+            <li className="cursor-pointer">
+              <div
+                className="cursor-pointer hover:text-blue-600"
+                onClick={() => {
+                  router.push({
+                    pathname: "/teams",
+                    
+                  });
+                }}
+                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
+                Team list
+              </div>
+            </li>
+          </ul>
+        </div>
       </form>
-      <div className='w-screen flex justify-center py-8'>
-        <div className='flex-col'>
-          <h1 className='text-2xl font-bold'>Your team</h1>
-          <h2 className='text-lg font-bold text-center'>{teamName}</h2>
+
+      <div className="w-screen flex justify-center py-8">
+        <div className="flex-col">
+          <h1 className="text-2xl font-bold">Your team</h1>
+          <h2 className="text-lg font-bold text-center">{teamName}</h2>
         </div>
       </div>
       <div className="all-pokemon">
         {pokemonTeam ? (
           pokemonTeam.map((pokemon) => {
             return (
-              <div
-                key={pokemon.id}
-                className="card"
-                
-              >
+              <div key={pokemon.id} className="card">
                 <div className="card-image">
                   <img
                     src={pokemon.sprites.other.home.front_shiny}
@@ -122,12 +159,20 @@ function create() {
           <h1>Loading...</h1>
         )}
       </div>
-     {pokemonTeam.length !== 0
-     ?  <div className='w-screen flex justify-center p-9' >
-     <button onClick={saveTeam} className='bg-black text-white p-2 rounded-lg'>Submit Team</button>
-   </div> : ""}
+      {pokemonTeam.length !== 0 ? (
+        <div className="w-screen flex justify-center p-9">
+          <button
+            onClick={saveTeam}
+            className="bg-black text-white p-2 rounded-lg"
+          >
+            Submit Team
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
     </main>
-  )
+  );
 }
 
 export default create

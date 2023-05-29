@@ -37,7 +37,7 @@ export default function teams() {
                   Router.push({
                     pathname: "/teamPage",
                     query: {
-                      team: team[0].name
+                      team: team[0].id
                   }
                   });
                 }}
