@@ -1,15 +1,17 @@
 
-import React, { useEffect, useState } from 'react'
-import { useGlobalContext } from "@/context/global";
-import Router, { useRouter } from "next/router";
-import { nanoid } from 'nanoid'
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { nanoid } from 'nanoid';
+import { useGlobalContext } from '@/context/global';
 
-function create() {
-  const [name, setName] = useState("")
-  const [teamName, setTeamName] = useState("")
-  const [pokemonTeam, setPokemonTeam] = useState([])
-  const [allPokemons, setAllPokemonData] = useState()
-  const [isDisabled, setIsDisabled] = useState(true)
+
+
+function Create() {
+  const [name, setName] = React.useState("")
+  const [teamName, setTeamName] = React.useState("")
+  const [pokemonTeam, setPokemonTeam] = React.useState([])
+  const [allPokemons, setAllPokemonData] = React.useState()
+  const [isDisabled, setIsDisabled] = React.useState(true)
 
   
 
@@ -26,7 +28,6 @@ function create() {
   },[allPokemonData])
 
   const fetchPokemon = (e) => {
-    console.log(allPokemons)
     e.preventDefault()
     if(allPokemons.length === 0){
       return
@@ -88,17 +89,17 @@ function create() {
           </button>
         </div>
         <div class="hidden w-full md:block md:w-auto p-6">
-          <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li className="cursor-pointer">
+          <ul classname="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
               <div
-                className="cursor-pointer hover:text-blue-600"
+                
                 onClick={() => {
                   router.push({
                     pathname: "/home",
                     
                   });
                 }}
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                className=" cursor-pointer hover:text-blue-600block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
                 Home
               </div>
@@ -135,7 +136,7 @@ function create() {
                 <div className="card-image">
                   <img
                     src={pokemon.sprites.other.home.front_shiny}
-                    alt={pokemon.name}
+                    alt={ "&apos;"}
                   />
                 </div>
                 <div className="card-body">
@@ -175,4 +176,4 @@ function create() {
   );
 }
 
-export default create
+export default Create
