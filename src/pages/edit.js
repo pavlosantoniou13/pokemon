@@ -60,6 +60,15 @@ export default function edit() {
     }
   }
 
+  const deleteTeam = () => {
+    setTeam([])
+    setTeamName("")
+    let allTeamsArr = allTeams;
+    allTeamsArr = allTeamsArr.filter((team) => team[0].id !== id);
+    const updatedTeams = JSON.stringify(allTeamsArr);
+    localStorage.setItem("teams", updatedTeams);
+  }
+
 
   
 
@@ -164,12 +173,20 @@ export default function edit() {
               />
         </div>
       </div>
-      <div className="w-screen flex justify-center p-9">
+        <div className="w-screen flex justify-center p-9">
           <button
             onClick={uploadData}
             className="bg-black text-white p-2 rounded-lg"
           >
             Submit Changes
+          </button>
+        </div>
+        <div className="w-screen flex justify-center p-9">
+          <button
+            onClick={deleteTeam}
+            className="bg-red-600 text-white p-2 rounded-lg"
+          >
+            Delete Team
           </button>
         </div>
     </div>
